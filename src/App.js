@@ -1,7 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
+import {Home} from './modules/home/Home';
 
 function App() {
+  return (
+    <Home />
+  )
+  /*
   return (
     <div className="App">
       <header className="App-header">
@@ -19,7 +24,7 @@ function App() {
         </a>
       </header>
     </div>
-  );
+  ); */
 }
 
 export default App;
