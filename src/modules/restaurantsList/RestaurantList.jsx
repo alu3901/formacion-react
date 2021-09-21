@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {getMenus} from "./actions";
 import "./restaurantsList.css";
 
 
 export const RestaurantsList = () => {
-    let [menus, setMenus] = useState([]);
 
-    getMenus().then(menuResponse => {
-    menus = menusResponse;
-});
+  const [loading, setLoading] = useState(true);
+  const [reload, setReload] = useState(false);
+  const [menus, setMenus] = useState([]);
+
+  useEffect(() => {
+      getMenus().then(menuResponse => {
+        setMenus(menuResponse);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    if(reload){
+      getMenus().then(menuResponse => {
+        setMenus(menuResponse);
+        setLoading(false);
+        setReload(false);
+      });
+    }
+  }, [reload]);
 
 console.log("Render RestaurantList");
 
@@ -18,8 +34,12 @@ console.log("Render RestaurantList");
           <span className="logo"></span>
           <span className="title">Inicio</span>
         </div>
+        <button onClick={() => setReload(true)}>Reload</button>
         <div className="restaurants">
-          {menus.map(menuItem =>
+          {loading &&
+            <div className="loading">Cargando</div>
+          }
+          {!loading && menus.map(menuItem =>
             <div className="restaurant-card loading" key={menuItem.id}>
               <div>Carrusel</div>
             <form>
