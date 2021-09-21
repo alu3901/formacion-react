@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import {Home} from './modules/home/Home';
+//import {Home} from './modules/home/Home';
+import { RestaurantsList } from './modules/restaurantsList/RestaurantList';
 
 function App() {
   return (
-    <Home />
+    <RestaurantsList />
   )
   /*
   return (
