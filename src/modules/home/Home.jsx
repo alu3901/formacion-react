@@ -12,7 +12,7 @@ const ElementoLista = (props) => {
 
 export const Home = () => {
 
-    const nombre = "Fabio";
+    const nombre = "dani";
     const value = true;
     const numeros = [1, 2, 3, 4, 5];
     
