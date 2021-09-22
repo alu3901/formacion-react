@@ -13,7 +13,8 @@ import "./restaurantsList.css";
 export const RestaurantsList = (props) => {
 
   const {
-    userInfo
+    userInfo,
+    loadMenus
   } = props;
 
   const [loading, setLoading] = useState(true);
@@ -24,17 +25,14 @@ export const RestaurantsList = (props) => {
   useEffect(() => {
     getMenus().then(menusResponse => {
       setMenus(menusResponse);
-      setLoading(false);
     });
   }, []);
 
   useEffect(() => {
     if (reload) {
       setMenus([]);
-      getMenus().then(menusResponse => {
+      getMenus(0,20).then(menusResponse => {
         setMenus(menusResponse);
-        setLoading(false);
-        setReload(false);
       });
     }
   }, [reload]);
@@ -63,3 +61,12 @@ export const RestaurantsList = (props) => {
     </>
   );
 };
+
+export default connect(
+  store => ({
+    //  loading: store.login.loading,
+  }),
+  dispatch => ({
+    getMenus : (start, count) => dispatch(getMenus(start, count))
+  })
+)(RestaurantsList);
